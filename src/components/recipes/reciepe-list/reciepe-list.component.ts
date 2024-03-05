@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
+import { ReciepeSercive } from '../recipe.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reciepe-list',
@@ -7,18 +9,21 @@ import { Recipe } from '../recipe.model';
   styleUrl: './reciepe-list.component.css'
 })
 export class ReciepeListComponent implements OnInit {
-  @Output() recipeWasSelected = new EventEmitter<Recipe>();
 
-  recipes: Recipe[] = [
-    new Recipe('Test1', 'Testing1', 'https://firebasestorage.googleapis.com/v0/b/portfolio-kushal-ij.appspot.com/o/prateek-katyal-xv7-GlvBLFw-unsplash.jpg?alt=media&token=8406ed62-2385-43dc-8210-0d1e32d28994'),
-    new Recipe('Test2', 'Testing2', 'https://firebasestorage.googleapis.com/v0/b/portfolio-kushal-ij.appspot.com/o/prateek-katyal-xv7-GlvBLFw-unsplash.jpg?alt=media&token=8406ed62-2385-43dc-8210-0d1e32d28994')
-  ];
+  recipes: Recipe[];
 
-  constructor() { }
+
+  constructor(private recipeSercive: ReciepeSercive,
+    private router: Router,
+    private route: ActivatedRoute) {
+
+  }
   ngOnInit(): void {
+    this.recipes = this.recipeSercive.getRecipes();
+  }
 
+  onNewRecipe() {
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
-  onRecipeSelected(recipe: Recipe) {
-    this.recipeWasSelected.emit(recipe);
-  }
+
 }
