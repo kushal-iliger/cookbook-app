@@ -10,12 +10,14 @@ import { ReciepeItemComponent } from '../components/recipes/reciepe-list/reciepe
 import { ShoppingListComponent } from '../components/shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from '../components/shopping-edit/shopping-edit.component';
 import { ReciepeDetailComponent } from '../components/recipes/reciepe-detail/reciepe-detail.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from '../components/shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeStartComponent } from '../components/recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from '../components/recipes/recipe-edit/recipe-edit.component';
+import { ReciepeSercive } from '../components/recipes/recipe.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
@@ -40,9 +42,11 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService, ReciepeSercive],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
